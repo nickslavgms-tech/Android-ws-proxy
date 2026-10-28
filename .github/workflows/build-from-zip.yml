@@ -35,6 +35,11 @@ jobs:
           echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
           ls -la "$PROJECT_DIR"
 
+      - name: Patch cryptography version (prebuilt Android wheel)
+        run: |
+          sed -i "s/cryptography==46.0.5/cryptography==42.0.8/" "$PROJECT_DIR/app/build.gradle"
+          grep -n "cryptography" "$PROJECT_DIR/app/build.gradle"
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
